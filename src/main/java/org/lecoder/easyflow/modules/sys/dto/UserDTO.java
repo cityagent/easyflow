@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class UserDTO {
-    private Integer id;
+    private Long  id;
     /**
      * 用户名
      */
@@ -31,4 +31,14 @@ public class UserDTO {
      * 邮箱
      */
     private String email;
+
+    /**
+     * 职务
+     */
+    private String position;
+
+    /**
+     * 部门
+     */
+    private String dept;
 }

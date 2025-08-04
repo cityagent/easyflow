@@ -11,12 +11,13 @@ import lombok.Data;
  */
 @Data
 public class LoginUserDTO {
-    private Integer id;
+    private Long  id;
     /**
      * 用户名
      */
     private String username;
 
+    private String password;
     /**
      * 姓名
      */
@@ -31,6 +32,16 @@ public class LoginUserDTO {
      * 邮箱
      */
     private String email;
+
+    /**
+     * 职务
+     */
+    private String position;
+
+    /**
+     * 部门
+     */
+    private String dept;
 
     private String token;
 }

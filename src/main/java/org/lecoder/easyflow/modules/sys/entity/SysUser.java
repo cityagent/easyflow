@@ -43,5 +43,15 @@ public class SysUser extends BaseEntity {
      */
     private String email;
 
+    /**
+     * 职务
+     */
+    private String position;
+
+    /**
+     * 部门
+     */
+    private String dept;
+
 
 }

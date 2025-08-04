@@ -9,7 +9,7 @@
     <version>1.0.0</version>
 
     <properties>
-        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <mybatis-plus.version>3.5.8</mybatis-plus.version>
         <hutool.version>5.7.5</hutool.version>
         <swagger.version>3.0.0</swagger.version>
     </properties>
@@ -22,6 +22,13 @@
     </parent>
 
     <dependencies>
+
+
+        <dependency>
+            <groupId>com.aizuda</groupId>
+            <artifactId>flowlong-spring-boot-starter</artifactId>
+            <version>1.1.5</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

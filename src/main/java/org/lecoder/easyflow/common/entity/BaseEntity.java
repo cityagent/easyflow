@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class BaseEntity implements Serializable {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+    @TableId(type = IdType.ASSIGN_ID)
+    private Long id;
 
 }
