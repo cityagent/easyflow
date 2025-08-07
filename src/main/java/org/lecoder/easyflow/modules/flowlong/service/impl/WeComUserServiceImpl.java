@@ -88,30 +88,6 @@ public class WeComUserServiceImpl implements IWeComUserService {
         return users;
     }
 
-    @Override
-    public WeComUserInfoDto getUserIdInfo() {
-        getDeptListPlus();
-
-
-        String url = getUrl("get-user-info");
-        Map<String, Object> request = new HashMap<>();
-        request.put("userid", "13540654497");
-        Map<String, Object> response = HttpClientUtils.fetchData(weComTokenService.getToken(null), request, url, HttpMethod.GET, null);
-        ObjectMapper mapper = new ObjectMapper();
-        WeComUserInfoDto result = mapper.convertValue(response, WeComUserInfoDto.class);
-        return result;
-    }
-
-    public void getDeptListPlus() {
-        String url = getUrl("get-dept-list-p");
-        Map<String, Object> request = new HashMap<>();
-        Map<String, Object> response = HttpClientUtils.fetchData(weComTokenService.getToken(null), request, url, HttpMethod.GET, null);
-        ObjectMapper mapper = new ObjectMapper();
-        WeComUserDepartmentResponse result = mapper.convertValue(response, WeComUserDepartmentResponse.class);
-        List<WeDepartmentDto> deptUser = result.getDepartment();
-        System.out.println(response);
-    }
-
 
     @Override
     public List<Department> getDeptList() {

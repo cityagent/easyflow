@@ -40,8 +40,8 @@ public class ProcessController extends BaseController {
     /**
      * 创建流程
      */
-    @PostMapping("/deploy")
-    public AjaxResult deployByResource(@RequestBody ProcessModelDto processModel) {
+    @PostMapping("/createProcess")
+    public AjaxResult createProcess(@RequestBody ProcessModelDto processModel) {
         String modelContent = FlowLongContext.toJson(processModel);
         // 将 String 转换为 InputStream（使用 UTF-8 编码）
         InputStream inputStream = new ByteArrayInputStream(modelContent.getBytes(StandardCharsets.UTF_8));
@@ -71,8 +71,8 @@ public class ProcessController extends BaseController {
     /**
      * 发起任务
      */
-    @PostMapping("/instanceStart")
-    public AjaxResult instanceStart(@RequestBody InstanceStartDto instanceStartDto) {
+    @PostMapping("/startInstance")
+    public AjaxResult startInstance(@RequestBody InstanceStartDto instanceStartDto) {
         if (instanceStartDto.getProcessKey() == null) {
             throw new RuntimeException("流程key不能为空");
         }
@@ -106,7 +106,7 @@ public class ProcessController extends BaseController {
     /**
      * 审批同意
      */
-    @PostMapping("/withdrawTask")
+    @PostMapping("/executeTask")
     public AjaxResult executeTask(@RequestBody InstanceStartDto instanceStartDto) {
         FlwTask flwTask = flowLongEngine.queryService().getTask(instanceStartDto.getTaskId());
         flowLongEngine.executeTask(flwTask.getId(), getFlowCreator(), instanceStartDto.getArgs());

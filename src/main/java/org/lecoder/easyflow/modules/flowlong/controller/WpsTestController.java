@@ -8,13 +8,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class test1 {
+public class WpsTestController {
     private static final String APP_ID = "AK20250805KCTMGF";
     private static final String APP_SECRET = "9cc1629f86d0105c3db9c2f1290dc21d";
     private static final String UPLOAD_API = "https://openapi.wps.cn/v1/files/upload";
 
     private static final String TOKEN_URL = "https://openapi.wps.cn/oauth2/token";
-    private static final Logger logger = Logger.getLogger(test1.class.getName());
+    private static final Logger logger = Logger.getLogger(WpsTestController.class.getName());
 
     // 获取access_token（有效期2小时）
     public static String getAccessToken() throws IOException {
