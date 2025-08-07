@@ -42,7 +42,7 @@ public class testController {
     @GetMapping("/instance-start")
     public FlwInstance instanceStart() {
         Map<String, Object> args = new HashMap<>();
-        args.put("day", 2);
+        args.put("day", 8);
         args.put("assignee", "test00100");
         return flowLongEngine.startInstanceByProcessKey("process", null, testCreator, args).get();
     }

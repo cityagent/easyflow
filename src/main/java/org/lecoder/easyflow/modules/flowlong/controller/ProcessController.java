@@ -52,15 +52,15 @@ public class ProcessController extends BaseController {
      * 查询自己已提交的所有任务
      */
     @PostMapping("/instanceQuery")
-    public AjaxResult instanceQuery(@RequestBody InstanceStartDto instanceStartDto) {
+    public AjaxResult instanceQuery() {
         LambdaQueryWrapper<FlwHisInstance> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(FlwHisInstance::getCreateId, "test001");
+        wrapper.eq(FlwHisInstance::getCreateId, getUserId());
         List<FlwHisInstance> flwHisInstances = flwHisInstanceMapper.selectList(wrapper);
         return AjaxResult.success(flwHisInstances);
     }
 
     /**
-     * 查询我审批的 所有任务 包含  待处理 已处理  抄送我 状态
+     * 查询我审批的
      */
     @PostMapping("/instanceAuditQuery")
     public AjaxResult instanceAuditQuery(@RequestBody InstanceStartDto instanceStartDto) {
@@ -78,6 +78,7 @@ public class ProcessController extends BaseController {
         }
         FlwProcess process = flowLongEngine.processService().getProcessByKey(null, instanceStartDto.getProcessKey());
         if (process != null) {
+            //处理节点自选审批人
             if (CollectionUtil.isNotEmpty(instanceStartDto.getNodeAssigneeMap())) {
                 HashMap<String, Object> map = new HashMap<>();
                 instanceStartDto.getNodeAssigneeMap().forEach((nodeKey, nodeAssigneeList) -> {
@@ -85,6 +86,7 @@ public class ProcessController extends BaseController {
                 });
                 FlowDataTransfer.dynamicAssignee(map);
             }
+            //发起流程
             FlwInstance flwInstance = flowLongEngine.startInstanceByProcessKey(instanceStartDto.getProcessKey(), process.getProcessVersion(), getFlowCreator(), instanceStartDto.getArgs()).orElseGet(() -> null);
             return AjaxResult.success(flwInstance);
         } else {
