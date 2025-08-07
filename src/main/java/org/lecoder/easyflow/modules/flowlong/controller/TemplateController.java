@@ -5,6 +5,7 @@ import org.lecoder.easyflow.common.entity.AjaxResult;
 import org.lecoder.easyflow.common.page.TableDataInfo;
 import org.lecoder.easyflow.modules.flowlong.dto.ApprovalTemplateDto;
 import org.lecoder.easyflow.modules.flowlong.entity.ApprovalTemplate;
+import org.lecoder.easyflow.modules.flowlong.enums.FiledTypeEnum;
 import org.lecoder.easyflow.modules.flowlong.service.IApprovalTemplateService;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,19 @@ public class TemplateController extends BaseController {
 
 
     /**
+     * 获取所有组件类型
+     *
+     * @return AjaxResult
+     */
+    @PostMapping("/findComponentAll")
+    public AjaxResult findComponentAll() {
+        List<String> codes = FiledTypeEnum.getAllFiledTypeCodes();
+        return AjaxResult.success(codes);
+    }
+
+    /**
      * 模版列表查询
+     *
      * @param approvalTemplate 模版参数
      * @return page
      */
@@ -37,7 +50,8 @@ public class TemplateController extends BaseController {
 
     /**
      * 模版详情
-     * @param id  id
+     *
+     * @param id id
      * @return AjaxResult
      */
     @GetMapping("/detail/{id}")
@@ -47,6 +61,7 @@ public class TemplateController extends BaseController {
 
     /**
      * 模版新增
+     *
      * @param approvalTemplate 模版参数
      * @return AjaxResult
      */
@@ -58,6 +73,7 @@ public class TemplateController extends BaseController {
 
     /**
      * 模版修改
+     *
      * @param approvalTemplate 模版参数
      * @return AjaxResult
      */
@@ -69,6 +85,7 @@ public class TemplateController extends BaseController {
 
     /**
      * 模版删除
+     *
      * @param id id
      * @return AjaxResult
      */

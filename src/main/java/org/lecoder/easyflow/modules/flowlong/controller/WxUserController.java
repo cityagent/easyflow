@@ -35,8 +35,7 @@ public class WxUserController {
      */
     @GetMapping("/syncUser")
     public AjaxResult syncUser() {
-        wxUserService.syncUser();
-        return AjaxResult.success();
+        return wxUserService.syncUser();
     }
 
 }
