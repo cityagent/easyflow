@@ -142,7 +142,6 @@ public class UserController extends BaseController {
         sysUser.setDept(userDTO.getDept());
         sysUser.setPosition(userDTO.getPosition());
         userService.save(sysUser);
-
         return CommonResult.success(sysUser);
     }
 

@@ -1,12 +1,14 @@
 package org.lecoder.easyflow.modules.flowlong.controller;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.aizuda.bpm.engine.FlowDataTransfer;
 import com.aizuda.bpm.engine.FlowLongEngine;
-import com.aizuda.bpm.engine.core.FlowCreator;
 import com.aizuda.bpm.engine.core.FlowLongContext;
 import com.aizuda.bpm.engine.entity.FlwHisInstance;
 import com.aizuda.bpm.engine.entity.FlwInstance;
 import com.aizuda.bpm.engine.entity.FlwProcess;
 import com.aizuda.bpm.engine.entity.FlwTask;
+import com.aizuda.bpm.engine.model.DynamicAssignee;
 import com.aizuda.bpm.mybatisplus.mapper.FlwHisInstanceMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,7 +36,6 @@ public class ProcessController extends BaseController {
 
     private final FlwHisInstanceMapper flwHisInstanceMapper;
 
-    protected static FlowCreator flowCreator = FlowCreator.of("test001", "测试001");
 
     /**
      * 创建流程
@@ -43,7 +45,7 @@ public class ProcessController extends BaseController {
         String modelContent = FlowLongContext.toJson(processModel);
         // 将 String 转换为 InputStream（使用 UTF-8 编码）
         InputStream inputStream = new ByteArrayInputStream(modelContent.getBytes(StandardCharsets.UTF_8));
-        return AjaxResult.success(flowLongEngine.processService().deploy(inputStream, flowCreator, false));
+        return AjaxResult.success(flowLongEngine.processService().deploy(inputStream, getFlowCreator(), false));
     }
 
     /**
@@ -75,11 +77,20 @@ public class ProcessController extends BaseController {
             throw new RuntimeException("流程key不能为空");
         }
         FlwProcess process = flowLongEngine.processService().getProcessByKey(null, instanceStartDto.getProcessKey());
-        if (process == null) {
+        if (process != null) {
+            if (CollectionUtil.isNotEmpty(instanceStartDto.getNodeAssigneeMap())) {
+                HashMap<String, Object> map = new HashMap<>();
+                instanceStartDto.getNodeAssigneeMap().forEach((nodeKey, nodeAssigneeList) -> {
+                    map.put(nodeKey, DynamicAssignee.assigneeUserList(nodeAssigneeList));
+                });
+                FlowDataTransfer.dynamicAssignee(map);
+            }
+            FlwInstance flwInstance = flowLongEngine.startInstanceByProcessKey(instanceStartDto.getProcessKey(), process.getProcessVersion(), getFlowCreator(), instanceStartDto.getArgs()).orElseGet(() -> null);
+            return AjaxResult.success(flwInstance);
+        } else {
             throw new RuntimeException("流程不存在");
         }
-        FlwInstance flwInstance = flowLongEngine.startInstanceByProcessKey(instanceStartDto.getProcessKey(), process.getProcessVersion(), flowCreator, instanceStartDto.getArgs()).orElseGet(() -> null);
-        return AjaxResult.success(flwInstance);
+
     }
 
     /**
@@ -87,7 +98,7 @@ public class ProcessController extends BaseController {
      */
     @GetMapping("/withdrawTask")
     public AjaxResult withdrawTask(Long taskId) {
-        flowLongEngine.taskService().withdrawTask(taskId, flowCreator);
+        flowLongEngine.taskService().withdrawTask(taskId, getFlowCreator());
         return AjaxResult.success();
     }
 
@@ -98,7 +109,7 @@ public class ProcessController extends BaseController {
     @PostMapping("/withdrawTask")
     public AjaxResult executeTask(@RequestBody InstanceStartDto instanceStartDto) {
         FlwTask flwTask = flowLongEngine.queryService().getTask(instanceStartDto.getTaskId());
-        flowLongEngine.executeTask(flwTask.getId(), flowCreator, instanceStartDto.getArgs());
+        flowLongEngine.executeTask(flwTask.getId(), getFlowCreator(), instanceStartDto.getArgs());
         return AjaxResult.success();
     }
 
@@ -109,7 +120,7 @@ public class ProcessController extends BaseController {
     @PostMapping("/executeRejectTask")
     public AjaxResult executeRejectTask(@RequestBody InstanceStartDto instanceStartDto) {
         FlwTask flwTask = flowLongEngine.queryService().getTask(instanceStartDto.getTaskId());
-        flowLongEngine.executeRejectTask(flwTask, flowCreator, instanceStartDto.getArgs());
+        flowLongEngine.executeRejectTask(flwTask, getFlowCreator(), instanceStartDto.getArgs());
         return AjaxResult.success();
     }
 }

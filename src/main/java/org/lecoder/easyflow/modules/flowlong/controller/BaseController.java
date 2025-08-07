@@ -1,6 +1,7 @@
 package org.lecoder.easyflow.modules.flowlong.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.aizuda.bpm.engine.core.FlowCreator;
 import org.lecoder.easyflow.common.entity.AjaxResult;
 import org.lecoder.easyflow.common.page.TableDataInfo;
 import org.lecoder.easyflow.common.toolkit.RequestHolder;
@@ -72,6 +73,11 @@ public class BaseController {
     {
         return RequestHolder.getCurrentUser();
     }
+
+    public FlowCreator getFlowCreator()
+    {
+        return FlowCreator.of(getUsername(), String.valueOf(getUserId()));
+    }
     /**
      * 响应请求分页数据
      */
@@ -125,5 +131,7 @@ public class BaseController {
     {
         return AjaxResult.error(message);
     }
+
+
 
 }

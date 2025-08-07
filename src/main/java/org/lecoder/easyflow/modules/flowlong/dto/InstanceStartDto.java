@@ -1,8 +1,10 @@
 package org.lecoder.easyflow.modules.flowlong.dto;
 
+import com.aizuda.bpm.engine.model.NodeAssignee;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,5 +27,15 @@ public class InstanceStartDto implements Serializable {
      */
     private String processKey;
 
+
+    /**
+     * 审批数据
+     */
     private Map<String, Object> args;
+
+
+    /**
+     * 节点处理人 key 流程节点 value 处理人
+     */
+    private Map<String, List<NodeAssignee>> nodeAssigneeMap;
 }

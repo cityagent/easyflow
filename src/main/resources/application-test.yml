@@ -35,3 +35,57 @@ org:
           - /v3/**
           - /swagger-resources/**
           - /webjars/**
+
+
+#第三方配置
+#企业微信
+wecom-config:
+  base-url: https://qyapi.weixin.qq.com
+  endpoints:
+    get-approval-ids: /cgi-bin/oa/getapprovalinfo
+    get-approval-detail: /cgi-bin/oa/getapprovaldetail
+    get-token: /cgi-bin/gettoken
+    create-doc: /cgi-bin/wedoc/create_doc
+    query-doc: /cgi-bin/wedoc/get_doc_base_info
+    query-sheet: /cgi-bin/wedoc/smartsheet/get_sheet
+    add-smartsheet-sheet: /cgi-bin/wedoc/smartsheet/add_sheet
+    add-smartsheet-field: /cgi-bin/wedoc/smartsheet/add_fields
+    add-smartsheet-sheet-record: /cgi-bin/wedoc/smartsheet/add_records
+    delete-smartsheet-sheet: /cgi-bin/wedoc/smartsheet/delete_sheet
+    get-smartsheet-fields: /cgi-bin/wedoc/smartsheet/get_fields
+    delete-smartsheet-field: /cgi-bin/wedoc/smartsheet/delete_fields
+    get-user-info: /cgi-bin/user/get
+    add-smart-record: /cgi-bin/wedoc/smartsheet/add_records
+    get-user-department: /cgi-bin/department/get
+    get-tags-users: /cgi-bin/tag/get
+    update-smart-record: /cgi-bin/wedoc/smartsheet/update_records
+    query-smart-record: /cgi-bin/wedoc/smartsheet/get_records
+    send-message-to-user: /cgi-bin/message/send
+    get-file: /cgi-bin/media/get
+    get-dept-list: /cgi-bin/department/simplelist
+    get-dept-list-p: /cgi-bin/department/list
+    get-c-sheet-info: /cgi-bin/wedoc/get_form_info
+    get-answer: /cgi-bin/wedoc/get_form_answer
+    get-file-list: /cgi-bin/wedrive/file_list
+    delete-file-list: /cgi-bin/wedrive/file_delete
+    get-checkin-data: /cgi-bin/checkin/getcheckindata
+    get-checkin-month: /cgi-bin/checkin/getcheckin_monthdata
+    get-checkin-day: /cgi-bin/checkin/getcheckin_daydata
+    get-dept-user-list: /cgi-bin/user/simplelist
+    get-dept-user-list-detail: /cgi-bin/user/list
+    upload-file-temporary: /cgi-bin/media/upload
+    upload-pic: /cgi-bin/media/uploadimg
+    del-records: /cgi-bin/wedoc/smartsheet/delete_records
+    get-user-list-id: /cgi-bin/user/list_id
+  #  测试环境id和密钥
+  credentials:
+    corpid: wwa76c93ae7c5b2468
+    app-corpsecret: Wvh8JNUEAsa8V28ZmfgFJ0BWzKPqweAXvgR2j5YMxKs
+    #    通讯录密钥
+    corpsecret: C_RHFX-x6Mmx4jX8VO2BgN8yIk8gqi5NVCDULXlx-Nw
+  #  公司id和密钥
+  com-credentials:
+    corpid: ww723d0fcf3c11e521
+    corpsecret: oiSniRjqpHF_E7mPcdF5bci2tv7JwY6piPIo6JaGKmE
+    #    通讯录密钥
+    contact-corpsecret: FB35TMCHvpOYU0Sao744ci3Bvmz40Q7sf-G05HNDe_Y
