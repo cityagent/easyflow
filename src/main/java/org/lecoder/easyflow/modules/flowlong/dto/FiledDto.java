@@ -3,6 +3,7 @@ package org.lecoder.easyflow.modules.flowlong.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.lecoder.easyflow.common.utils.DbColumnNameGenerator;
 import org.lecoder.easyflow.modules.flowlong.enums.FiledTypeEnum;
 
 import java.io.Serializable;
@@ -46,6 +47,11 @@ public class FiledDto implements Serializable {
      * 是否参与打印
      */
     @ApiModelProperty(value = "是否参与打印")
-
     private Boolean needPrint;
+
+    public void setFiled(String filed) {
+        if (this.getFiled()==null){
+            this.filed = DbColumnNameGenerator.generateColumnName("t_",this.getFiledName());
+        }
+    }
 }

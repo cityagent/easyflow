@@ -1,7 +1,5 @@
 package org.lecoder.easyflow.modules.flowlong.service.impl;
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.lecoder.easyflow.modules.flowlong.dto.ApprovalTemplateDto;
@@ -67,7 +65,7 @@ public class ApprovalTemplateServiceImpl extends ServiceImpl<ApprovalTemplateMap
         templateDto.setId(template.getId());
         templateDto.setName(template.getName());
         templateDto.setTemplateGroup(template.getTemplateGroup());
-        if (!StringUtils.isEmpty(template.getContent())){
+        if (!StringUtils.isEmpty(template.getContent())) {
             templateDto.setContent(JSONUtil.parseArray(template.getContent()).toList(FiledDto.class));
         }
         templateDto.setProcessId(template.getProcessId());

@@ -24,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * @author Administrator
+ */
 @Service
 public class WeComUserServiceImpl implements IWeComUserService {
 
@@ -72,6 +75,17 @@ public class WeComUserServiceImpl implements IWeComUserService {
                 wxUser.setName(weComUserInfoDto.getName());
                 wxUser.setPosition(weComUserInfoDto.getPosition());
                 wxUser.setPhone(weComUserInfoDto.getTelephone());
+                if (CollectionUtil.isNotEmpty(weComUserInfoDto.getOrder())){
+                    wxUser.setOrder(weComUserInfoDto.getOrder().stream().map(String::valueOf).collect(Collectors.joining(",")));
+                }
+                wxUser.setMainDepartment(weComUserInfoDto.getMain_department());
+                if (CollectionUtil.isNotEmpty(weComUserInfoDto.getDirect_leader())){
+                    wxUser.setDirectLeader(weComUserInfoDto.getDirect_leader().get(0));
+                }
+                wxUser.setStatus(weComUserInfoDto.getStatus());
+                if (CollectionUtil.isNotEmpty(weComUserInfoDto.getIs_leader_in_dept())){
+                    wxUser.setLeaderDept(weComUserInfoDto.getIs_leader_in_dept().stream().map(String::valueOf).collect(Collectors.joining(",")));
+                }
                 if (userMap.containsKey(userId)) {
                     List<WxUserDto> userList = userMap.get(userId);
                     if (userList.size() > 1) {

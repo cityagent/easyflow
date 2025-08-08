@@ -1,6 +1,7 @@
 package org.lecoder.easyflow.modules.flowlong.dto;
 
 import lombok.Data;
+import org.lecoder.easyflow.modules.flowlong.entity.WxUser;
 import org.simpleframework.xml.Transient;
 
 import java.io.Serializable;
@@ -33,6 +34,10 @@ public class DepartmentDto implements Serializable {
      * 部门负责人 多个逗号隔开
      */
     private String departmentLeader;
+    /**
+     *  员工
+     */
+    private List<WxUser> userList;
 
     /**
      * 子节点集合
