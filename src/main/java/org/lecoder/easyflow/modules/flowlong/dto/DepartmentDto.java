@@ -1,11 +1,9 @@
-package org.lecoder.easyflow.modules.flowlong.entity;
+package org.lecoder.easyflow.modules.flowlong.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import org.lecoder.easyflow.common.entity.BaseEntity;
 import org.simpleframework.xml.Transient;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -13,11 +11,10 @@ import java.util.List;
  * 企微部门
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("wx_department")
-public class Department extends BaseEntity {
-
+public class DepartmentDto implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    private Long id;
     /**
      * 部门名称
      */
@@ -36,4 +33,10 @@ public class Department extends BaseEntity {
      * 部门负责人 多个逗号隔开
      */
     private String departmentLeader;
+
+    /**
+     * 子节点集合
+     */
+    @Transient
+    private List<DepartmentDto> departmentChildren;
 }

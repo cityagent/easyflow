@@ -27,7 +27,7 @@ public class ApprovalTemplateServiceImpl extends ServiceImpl<ApprovalTemplateMap
 
 
     @Override
-    public List<ApprovalTemplate> selectList(ApprovalTemplate approvalTemplate) {
+    public List<ApprovalTemplateDto> selectList(ApprovalTemplateDto approvalTemplate) {
         return this.baseMapper.selectList(approvalTemplate);
     }
 

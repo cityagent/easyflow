@@ -3,6 +3,7 @@ package org.lecoder.easyflow.modules.flowlong.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.lecoder.easyflow.common.entity.AjaxResult;
 import org.lecoder.easyflow.modules.flowlong.dto.ApprovalTemplateDto;
+import org.lecoder.easyflow.modules.flowlong.dto.DepartmentDto;
 import org.lecoder.easyflow.modules.flowlong.entity.ApprovalTemplate;
 import org.lecoder.easyflow.modules.flowlong.entity.Department;
 
@@ -24,7 +25,7 @@ public interface IDepartmentService extends IService<Department> {
      * @param department 参数
      * @return 列表
      */
-    List<Department> selectList(Department department);
+    List<DepartmentDto> selectList(DepartmentDto department);
 
 
     /**
@@ -33,6 +34,6 @@ public interface IDepartmentService extends IService<Department> {
      */
     AjaxResult syncDepartment();
 
-
+    List<DepartmentDto> getDepartmentTree(DepartmentDto department);
 
 }

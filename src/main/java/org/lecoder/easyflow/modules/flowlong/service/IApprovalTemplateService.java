@@ -17,7 +17,7 @@ import java.util.List;
 public interface IApprovalTemplateService extends IService<ApprovalTemplate> {
 
 
-    List<ApprovalTemplate> selectList(ApprovalTemplate approvalTemplate);
+    List<ApprovalTemplateDto> selectList(ApprovalTemplateDto approvalTemplate);
 
     // 保存审批模板
     int insert(ApprovalTemplateDto approvalTemplate);

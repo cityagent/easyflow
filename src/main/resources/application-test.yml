@@ -12,6 +12,16 @@ spring:
       auto-commit: true
       # 连接后测试语句
       connection-test-query: SELECT 1
+
+
+minio:
+  url: http://61.139.17.143:9001/
+  access-key: ptzUTKiBJm5KyNPvtXEq
+  secret-key: oxay1Qh0PNlkUiWkKRHFrcTahAdwBxDW7hnywJuw
+  bucket-name: public
+  profiles:
+    active: dev
+
 log:
   # 日志基础目录
   basedir: D:/logs/

@@ -3,7 +3,7 @@
 <mapper namespace="org.lecoder.easyflow.modules.flowlong.mapper.DepartmentMapper">
 
 
-    <select id="selectList" resultType="org.lecoder.easyflow.modules.flowlong.entity.Department">
+    <select id="selectList" resultType="org.lecoder.easyflow.modules.flowlong.dto.DepartmentDto">
         select * from wx_department department
         <where>
             <if test="name != null and name != ''">

@@ -1,6 +1,7 @@
 package org.lecoder.easyflow.modules.flowlong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.lecoder.easyflow.modules.flowlong.dto.ApprovalTemplateDto;
 import org.lecoder.easyflow.modules.flowlong.entity.ApprovalTemplate;
 
 import java.util.List;
@@ -15,5 +16,5 @@ import java.util.List;
  */
 public interface ApprovalTemplateMapper extends BaseMapper<ApprovalTemplate> {
 
-    List<ApprovalTemplate> selectList(ApprovalTemplate approvalTemplate);
+    List<ApprovalTemplateDto> selectList(ApprovalTemplateDto approvalTemplate);
 }

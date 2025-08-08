@@ -16,6 +16,9 @@ import javax.annotation.Resource;
 import java.net.URLEncoder;
 import java.util.Optional;
 
+/**
+ * @author Administrator
+ */
 @Service
 public class WeComTokenServiceImpl implements IWeComTokenService {
 

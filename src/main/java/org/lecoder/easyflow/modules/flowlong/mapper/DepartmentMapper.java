@@ -1,6 +1,7 @@
 package org.lecoder.easyflow.modules.flowlong.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.lecoder.easyflow.modules.flowlong.dto.DepartmentDto;
 import org.lecoder.easyflow.modules.flowlong.entity.Department;
 
 import java.util.List;
@@ -14,5 +15,5 @@ import java.util.List;
  */
 public interface DepartmentMapper extends BaseMapper<Department> {
 
-    List<Department> selectList(Department department);
+    List<DepartmentDto> selectList(DepartmentDto department);
 }

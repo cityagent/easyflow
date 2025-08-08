@@ -11,8 +11,11 @@ import com.aizuda.bpm.engine.entity.FlwTask;
 import com.aizuda.bpm.engine.model.DynamicAssignee;
 import com.aizuda.bpm.mybatisplus.mapper.FlwHisInstanceMapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.lecoder.easyflow.common.entity.AjaxResult;
+import org.lecoder.easyflow.modules.flowlong.dto.InstanceQueryDto;
 import org.lecoder.easyflow.modules.flowlong.dto.InstanceStartDto;
 import org.lecoder.easyflow.modules.flowlong.dto.ProcessModelDto;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,7 @@ import java.util.List;
  * @author Administrator
  * 流程定义
  */
+@Api(tags = "流程定义")
 @RestController
 @RequestMapping("/process")
 @AllArgsConstructor
@@ -40,6 +44,7 @@ public class ProcessController extends BaseController {
     /**
      * 创建流程
      */
+    @ApiOperation("创建流程")
     @PostMapping("/createProcess")
     public AjaxResult createProcess(@RequestBody ProcessModelDto processModel) {
         String modelContent = FlowLongContext.toJson(processModel);
@@ -51,8 +56,9 @@ public class ProcessController extends BaseController {
     /**
      * 查询自己已提交的所有任务
      */
+
     @PostMapping("/instanceQuery")
-    public AjaxResult instanceQuery() {
+    public AjaxResult instanceQuery(@RequestBody InstanceQueryDto instanceStartDto) {
         LambdaQueryWrapper<FlwHisInstance> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(FlwHisInstance::getCreateId, getUserId());
         List<FlwHisInstance> flwHisInstances = flwHisInstanceMapper.selectList(wrapper);
@@ -63,7 +69,7 @@ public class ProcessController extends BaseController {
      * 查询我审批的
      */
     @PostMapping("/instanceAuditQuery")
-    public AjaxResult instanceAuditQuery(@RequestBody InstanceStartDto instanceStartDto) {
+    public AjaxResult instanceAuditQuery(@RequestBody InstanceQueryDto instanceStartDto) {
 
         return AjaxResult.success();
     }
@@ -71,6 +77,7 @@ public class ProcessController extends BaseController {
     /**
      * 发起任务
      */
+    @ApiOperation("发起流程")
     @PostMapping("/startInstance")
     public AjaxResult startInstance(@RequestBody InstanceStartDto instanceStartDto) {
         if (instanceStartDto.getProcessKey() == null) {
@@ -98,6 +105,7 @@ public class ProcessController extends BaseController {
     /**
      * 撤回任务
      */
+    @ApiOperation("撤回流程")
     @GetMapping("/withdrawTask")
     public AjaxResult withdrawTask(Long taskId) {
         flowLongEngine.taskService().withdrawTask(taskId, getFlowCreator());
@@ -108,6 +116,7 @@ public class ProcessController extends BaseController {
     /**
      * 审批同意
      */
+    @ApiOperation("审批同意")
     @PostMapping("/executeTask")
     public AjaxResult executeTask(@RequestBody InstanceStartDto instanceStartDto) {
         FlwTask flwTask = flowLongEngine.queryService().getTask(instanceStartDto.getTaskId());
@@ -119,6 +128,7 @@ public class ProcessController extends BaseController {
     /**
      * 审批拒绝
      */
+    @ApiOperation("审批拒绝")
     @PostMapping("/executeRejectTask")
     public AjaxResult executeRejectTask(@RequestBody InstanceStartDto instanceStartDto) {
         FlwTask flwTask = flowLongEngine.queryService().getTask(instanceStartDto.getTaskId());

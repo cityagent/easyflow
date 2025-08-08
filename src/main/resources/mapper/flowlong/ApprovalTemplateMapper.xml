@@ -3,7 +3,7 @@
 <mapper namespace="org.lecoder.easyflow.modules.flowlong.mapper.ApprovalTemplateMapper">
 
 
-    <select id="selectList" resultType="org.lecoder.easyflow.modules.flowlong.entity.ApprovalTemplate">
+    <select id="selectList" resultType="org.lecoder.easyflow.modules.flowlong.dto.ApprovalTemplateDto">
         select * from flw_approval_template template
         <where>
             <if test="name != null and name != ''">

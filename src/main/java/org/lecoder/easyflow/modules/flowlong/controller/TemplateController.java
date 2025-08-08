@@ -1,10 +1,11 @@
 package org.lecoder.easyflow.modules.flowlong.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.lecoder.easyflow.common.entity.AjaxResult;
 import org.lecoder.easyflow.common.page.TableDataInfo;
 import org.lecoder.easyflow.modules.flowlong.dto.ApprovalTemplateDto;
-import org.lecoder.easyflow.modules.flowlong.entity.ApprovalTemplate;
 import org.lecoder.easyflow.modules.flowlong.enums.FiledTypeEnum;
 import org.lecoder.easyflow.modules.flowlong.service.IApprovalTemplateService;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/template")
+@Api(tags = "模版配置")
 @AllArgsConstructor
 public class TemplateController extends BaseController {
 
@@ -29,6 +31,7 @@ public class TemplateController extends BaseController {
      *
      * @return AjaxResult
      */
+    @ApiOperation("获取模版所有组件类型")
     @PostMapping("/findComponentAll")
     public AjaxResult findComponentAll() {
         List<String> codes = FiledTypeEnum.getAllFiledTypeCodes();
@@ -41,10 +44,11 @@ public class TemplateController extends BaseController {
      * @param approvalTemplate 模版参数
      * @return page
      */
+    @ApiOperation("模版列表查询")
     @PostMapping("/list")
-    public TableDataInfo list(ApprovalTemplate approvalTemplate) {
+    public TableDataInfo list(ApprovalTemplateDto approvalTemplate) {
         startPage();
-        List<ApprovalTemplate> list = approvalTemplateService.selectList(approvalTemplate);
+        List<ApprovalTemplateDto> list = approvalTemplateService.selectList(approvalTemplate);
         return getDataTable(list);
     }
 
@@ -54,6 +58,7 @@ public class TemplateController extends BaseController {
      * @param id id
      * @return AjaxResult
      */
+    @ApiOperation("模版详情")
     @GetMapping("/detail/{id}")
     public AjaxResult detail(@PathVariable Long id) {
         return AjaxResult.success(approvalTemplateService.detail(id));
@@ -65,6 +70,7 @@ public class TemplateController extends BaseController {
      * @param approvalTemplate 模版参数
      * @return AjaxResult
      */
+    @ApiOperation("模版新增")
     @PostMapping("/insert")
     public AjaxResult insert(@RequestBody ApprovalTemplateDto approvalTemplate) {
         approvalTemplateService.insert(approvalTemplate);
@@ -77,6 +83,7 @@ public class TemplateController extends BaseController {
      * @param approvalTemplate 模版参数
      * @return AjaxResult
      */
+    @ApiOperation("模版修改")
     @PostMapping("/update")
     public AjaxResult update(@RequestBody ApprovalTemplateDto approvalTemplate) {
         approvalTemplateService.update(approvalTemplate);
@@ -89,6 +96,7 @@ public class TemplateController extends BaseController {
      * @param id id
      * @return AjaxResult
      */
+    @ApiOperation("模版删除")
     @DeleteMapping("/remove/{id}")
     public AjaxResult remove(@PathVariable Long id) {
         approvalTemplateService.delete(id);
